@@ -60,11 +60,21 @@ public class test {
             System.out.println(0);
         }
     }
+
+    static void testAddIllegalInput(){
+        // Test Exceeded Size Exception
+        System.out.println("Testing Illegal arguments on AddColour");
+        ColourTable table = new ColourTable(8);
+        assertThrows(IllegalArgumentException.class, () -> table.addColour(new int[]{128, 258, 128}));
+        assertThrows(IllegalArgumentException.class, () -> table.addColour(new int[]{128, 128, 128, 128}));
+        System.out.println(0);
+    }
     public static void main(String[] args){
         testConstructorValidInput();
         testConstructorInvalidInput();
         testAddColour();
         testExceededSizeException();
+        testAddIllegalInput();
     }
 
 }

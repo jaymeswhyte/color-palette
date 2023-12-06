@@ -28,9 +28,26 @@ public class ColourTable {
 
     // A method add that enables a developer to add a 24-bit RGB colour to the colour table
     public void addColour(int[] newColour)throws SizeLimitExceededException {
+        // Don't add duplicate colours
+        if(table.contains(newColour)){
+            return;
+        }
+        // Check table isn't full
         if(colourIndex < table.size()){
-            table.set(colourIndex, newColour);
-            colourIndex++;
+            // Check input contains 3 values
+            if(newColour.length == 3){
+                // Check colours are within acceptable 8-bit range
+                for(int i=0; i<newColour.length; i++){
+                    if(0>newColour[i] || newColour[i]>256){
+                        throw new IllegalArgumentException("Values must be 0-256");
+                    }
+                }
+                table.set(colourIndex, newColour);
+                colourIndex++;
+            }
+            else{
+                throw new IllegalArgumentException("Colour must contain 3 values for R,G and B");
+            }
         }
         else{
             throw new SizeLimitExceededException("Table is full!");
